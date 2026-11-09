@@ -1,0 +1,25 @@
+---
+description: Avero design system and project rules
+alwaysApply: true
+---
+
+Project: Avero – Smart Local Tourism Business Portal.
+The Next.js app lives in /avero-web (App Router, TypeScript, Tailwind, shadcn/ui with Radix).
+All paths below are relative to /avero-web.
+
+Colors (Tailwind tokens):
+- terracotta #E07856 (dominant: primary buttons, accents, active states)
+- teal-navy #1B4B4A (minor accent only)
+- cream #FAF6F1 (page background)
+- amber #F2A93B (highlights, badges, ratings)
+
+Typography: Poppins for UI; Playfair Display (serif) for large headlines.
+Texture: faded light orange-and-white gradient behind hero and headline areas.
+
+Rules:
+- Icons: lucide-react or inline SVG only. NEVER icon fonts or Material Icons ligatures.
+- All colors come from tailwind/theme tokens, never hardcode hex in components.
+- Shared components live in src/components/ui/, providers in src/providers/.
+- Mock data lives in src/data/ and is the single source of truth for listings.
+- Use one shared interest taxonomy (src/data/interests.ts) everywhere.
+- Responsive: mobile-first, must look good at 375px and 1440px.
