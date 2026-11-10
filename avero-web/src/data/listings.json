@@ -1,0 +1,223 @@
+[
+  {
+    "id": "belagavi-fort",
+    "name": "Belagavi Fort & Kamal Basti",
+    "category": "Heritage Site",
+    "area": "Fort Area, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["heritage", "art-culture"],
+    "status": "live",
+    "description": "Historic 12th-century stone fortress housing the intricately carved Jain Kamal Basti temple.",
+    "avgCost": 50
+  },
+  {
+    "id": "purohit-sweets-kunda",
+    "name": "Purohit Sweets & Authentic Kunda",
+    "category": "Restaurant",
+    "area": "Khade Bazar, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["food"],
+    "status": "live",
+    "description": "Iconic sweet house celebrated for traditional slow-cooked Belagavi Kunda and fresh milk desserts.",
+    "avgCost": 150
+  },
+  {
+    "id": "gokak-falls-adventure",
+    "name": "Gokak Falls Adventure Walk",
+    "category": "Adventure",
+    "area": "Gokak, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["adventure", "nature"],
+    "status": "live",
+    "description": "Suspension bridge walk and scenic gorge trekking overlooking the cascading Ghataprabha river falls.",
+    "avgCost": 600
+  },
+  {
+    "id": "khasbag-handloom-weavers",
+    "name": "Khasbag Handloom Cooperative",
+    "category": "Shopping",
+    "area": "Khasbag, Belagavi",
+    "priceRange": "₹₹₹",
+    "interestTags": ["shopping", "art-culture", "heritage"],
+    "status": "live",
+    "description": "Master weavers producing prized traditional Belagavi silk and fine cotton handloom sarees.",
+    "avgCost": 3500
+  },
+  {
+    "id": "camp-roastery-cafe",
+    "name": "The Camp Artisan Roastery",
+    "category": "Cafe",
+    "area": "Camp, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["food", "nightlife"],
+    "status": "live",
+    "description": "Cozy specialty cafe serving single-origin pour-overs, Belgian waffles, and artisanal light bites.",
+    "avgCost": 450
+  },
+  {
+    "id": "jamboti-eco-trails",
+    "name": "Jamboti Forest Eco Trails",
+    "category": "Adventure",
+    "area": "Jamboti, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["adventure", "nature"],
+    "status": "live",
+    "description": "Guided rainforest trek through lush Western Ghats woodlands with clear freshwater stream crossings.",
+    "avgCost": 800
+  },
+  {
+    "id": "sanjivani-ayurveda-wellness",
+    "name": "Sanjivani Ayurvedic Wellness Retreat",
+    "category": "Wellness",
+    "area": "Tilakwadi, Belagavi",
+    "priceRange": "₹₹₹",
+    "interestTags": ["wellness"],
+    "status": "live",
+    "description": "Authentic healing sanctuary specializing in rejuvenating herbal therapies, Panchakarma, and meditation.",
+    "avgCost": 2200
+  },
+  {
+    "id": "niyaz-restaurant",
+    "name": "Niyaz Restaurant",
+    "category": "Restaurant",
+    "area": "Club Road, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["food"],
+    "status": "live",
+    "description": "Beloved culinary landmark acclaimed for authentic Belagavi mutton biryani and tandoori specialties.",
+    "avgCost": 750
+  },
+  {
+    "id": "rajhans-gad-yellur",
+    "name": "Rajhans Gad Yellur Fort",
+    "category": "Heritage Site",
+    "area": "Yellur, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["heritage", "nature", "adventure"],
+    "status": "live",
+    "description": "Hilltop fortress rewarding hikers with panoramic vistas of rural Belagavi's fertile green valleys.",
+    "avgCost": 100
+  },
+  {
+    "id": "kittur-chennamma-memorial",
+    "name": "Kittur Fort & Chennamma Museum",
+    "category": "Heritage Site",
+    "area": "Kittur, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["heritage", "art-culture"],
+    "status": "live",
+    "description": "Historic palace ramparts and heritage museum preserving artifacts of queen Rani Chennamma's rebellion.",
+    "avgCost": 80
+  },
+  {
+    "id": "cafe-canvas-art-lounge",
+    "name": "Cafe Canvas & Art Studio",
+    "category": "Cafe",
+    "area": "Hindwadi, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["food", "art-culture"],
+    "status": "live",
+    "description": "Creative studio space blending regional art exhibits, barista coffee, and fresh Continental bites.",
+    "avgCost": 400
+  },
+  {
+    "id": "shahapur-pottery-studio",
+    "name": "Shahapur Clay Craft Studio",
+    "category": "Shopping",
+    "area": "Shahapur, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["shopping", "art-culture"],
+    "status": "live",
+    "description": "Hands-on terracotta pottery workshop offering clay sculpting experiences and artisanal earthenware.",
+    "avgCost": 300
+  },
+  {
+    "id": "hidkal-dam-waters",
+    "name": "Hidkal Reservoir & Boating Club",
+    "category": "Nature",
+    "area": "Hukkeri, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["nature", "adventure"],
+    "status": "live",
+    "description": "Serene lakeside reserve featuring peaceful boat excursions, migratory birding, and sunset viewpoints.",
+    "avgCost": 250
+  },
+  {
+    "id": "highland-bistro-lounge",
+    "name": "Highland Bistro & Live Lounge",
+    "category": "Restaurant",
+    "area": "Congress Road, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["food", "nightlife"],
+    "status": "live",
+    "description": "Energetic rooftop gathering spot with craft mocktails, woodfired pizzas, and weekend acoustic gigs.",
+    "avgCost": 850
+  },
+  {
+    "id": "suvarna-soudha-gardens",
+    "name": "Suvarna Vidhana Soudha Gardens",
+    "category": "Nature",
+    "area": "Halaga, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["nature", "art-culture"],
+    "status": "verified",
+    "description": "Manicured public botanical grounds surrounding the monumental state legislature architecture.",
+    "avgCost": 60
+  },
+  {
+    "id": "nisarga-ayur-yoga-haven",
+    "name": "Nisarga Yoga & Herbal Haven",
+    "category": "Wellness",
+    "area": "Khadaklat, Belagavi",
+    "priceRange": "₹₹₹",
+    "interestTags": ["wellness", "nature"],
+    "status": "verified",
+    "description": "Tranquil farm-side wellness retreat offering dawn yoga sessions, herbal steam, and satvik cuisine.",
+    "avgCost": 2600
+  },
+  {
+    "id": "asha-mandige-center",
+    "name": "Asha Mandige House",
+    "category": "Restaurant",
+    "area": "Ganpat Galli, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["food", "heritage"],
+    "status": "verified",
+    "description": "Century-old culinary establishment hand-stretching delicate crepelike Mandige over earthen pots.",
+    "avgCost": 200
+  },
+  {
+    "id": "camp-brass-emporium",
+    "name": "Camp Heritage Brassware Emporium",
+    "category": "Shopping",
+    "area": "Camp, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["shopping", "heritage"],
+    "status": "verified",
+    "description": "Heritage antique gallery presenting handcrafted bell-metal artifacts, lamps, and wood carvings.",
+    "avgCost": 1200
+  },
+  {
+    "id": "vajrapoha-wild-expedition",
+    "name": "Vajrapoha Falls Jungle Expedition",
+    "category": "Adventure",
+    "area": "Khanapur, Belagavi",
+    "priceRange": "₹₹",
+    "interestTags": ["adventure", "nature"],
+    "status": "pending",
+    "description": "Challenging wilderness expedition heading into the deep Mahadayi wildlife sanctuary cascades.",
+    "avgCost": 1500
+  },
+  {
+    "id": "root-stone-wellness-cafe",
+    "name": "Root & Stone Organic Cafe",
+    "category": "Cafe",
+    "area": "Angol, Belagavi",
+    "priceRange": "₹",
+    "interestTags": ["food", "wellness"],
+    "status": "pending",
+    "description": "Mindful farm-to-table cafe preparing cold-pressed botanicals, vegan bowls, and millet sourdough.",
+    "avgCost": 350
+  }
+]
+

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState, type FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, LockKeyhole, Mail, User as UserIcon } from "lucide-react";
 import { type UserRole, useAuth } from "@/providers/AuthProvider";
@@ -51,10 +51,19 @@ function validateFields(
   return errors;
 }
 
-export default function SignupPage() {
+function SignupContent() {
+  const searchParams = useSearchParams();
+  const roleParam = searchParams.get("role");
+  const initialRole: UserRole =
+    roleParam === "business" ? "business" : "traveller";
+
+  return <SignupForm key={initialRole} defaultRole={initialRole} />;
+}
+
+function SignupForm({ defaultRole }: { defaultRole: UserRole }) {
   const router = useRouter();
   const { signup } = useAuth();
-  const [role, setRole] = useState<UserRole>("traveller");
+  const [role, setRole] = useState<UserRole>(defaultRole);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -449,3 +458,10 @@ export default function SignupPage() {
   );
 }
 
+export default function SignupPage() {
+  return (
+    <Suspense fallback={null}>
+      <SignupContent />
+    </Suspense>
+  );
+}
