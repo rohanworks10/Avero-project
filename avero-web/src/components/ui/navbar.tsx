@@ -53,6 +53,18 @@ export function Navbar() {
             Plan a trip
           </Link>
           <Link
+            href="/discover"
+            className="text-sm font-medium text-teal-navy/80 transition-colors hover:text-teal-navy"
+          >
+            Discover
+          </Link>
+          <Link
+            href="/trips"
+            className="text-sm font-medium text-teal-navy/80 transition-colors hover:text-teal-navy"
+          >
+            My trips
+          </Link>
+          <Link
             href="/business/register"
             className="text-sm font-medium text-teal-navy/80 transition-colors hover:text-teal-navy"
           >
@@ -109,6 +121,12 @@ export function Navbar() {
               className="rounded-lg px-3 py-2 text-base font-medium text-teal-navy/90 transition-colors hover:bg-teal-navy/5 hover:text-teal-navy"
             >
               Plan a trip
+            </Link>
+            <Link href="/discover" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2 text-base font-medium text-teal-navy/90 transition-colors hover:bg-teal-navy/5 hover:text-teal-navy">
+              Discover
+            </Link>
+            <Link href="/trips" onClick={() => setMobileMenuOpen(false)} className="rounded-lg px-3 py-2 text-base font-medium text-teal-navy/90 transition-colors hover:bg-teal-navy/5 hover:text-teal-navy">
+              My trips
             </Link>
             <Link
               href="/business/register"

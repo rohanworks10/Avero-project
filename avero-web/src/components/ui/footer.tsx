@@ -50,6 +50,18 @@ export function Footer() {
               Plan a trip
             </Link>
             <Link
+              href="/discover"
+              className="transition-colors hover:text-foreground"
+            >
+              Discover
+            </Link>
+            <Link
+              href="/trips"
+              className="transition-colors hover:text-foreground"
+            >
+              My trips
+            </Link>
+            <Link
               href="/business/register"
               className="transition-colors hover:text-foreground"
             >

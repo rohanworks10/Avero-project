@@ -191,6 +191,11 @@ export function saveCurrentTrip(): Trip | null {
   return current;
 }
 
+export function deleteSavedTrip(tripId: string): void {
+  const saved = getSavedTrips();
+  persistSavedTrips(saved.filter((trip) => trip.id !== tripId));
+}
+
 export function getTripById(id: string): Trip | null {
   const current = getCurrentTrip();
   if (current?.id === id) return current;
@@ -307,4 +312,3 @@ export function estimateTripCost(trip: Trip): number {
 
   return total;
 }
-
