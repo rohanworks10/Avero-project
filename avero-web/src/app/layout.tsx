@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Poppins } from "next/font/google";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { WizardProvider } from "@/providers/WizardProvider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${poppins.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <WizardProvider>{children}</WizardProvider>
+        </AuthProvider>
       </body>
     </html>
   );
