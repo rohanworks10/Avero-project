@@ -9,6 +9,7 @@ import {
   type PriceRange,
   type NewListingInput,
 } from "./listings-store";
+import { getInterestById } from "@/data/interests";
 
 export type { Listing, ListingStatus, PriceRange, NewListingInput };
 export { addListing, updateStatus, getAllListings };
@@ -31,6 +32,18 @@ export type DayPlan = {
     evening: Listing[];
   };
   stops: Listing[];
+};
+
+export type NearbyLocalPreferences = {
+  budget: number;
+  interests: string[];
+};
+
+export type NearbyLocal = Listing & {
+  shortDescription: string;
+  walkMinutes: number;
+  matchPercent: number;
+  reason: string;
 };
 
 /**
@@ -66,6 +79,68 @@ function isPriceWithinBudget(priceRange: PriceRange, budget: number): boolean {
 
   // Low/tight budget: allow only budget tier (₹)
   return priceRange === "₹";
+}
+
+/**
+ * Ranks verified businesses near an itinerary stop by interests, area, and budget.
+ */
+export function getNearbyLocals(
+  stop: Pick<Listing, "id" | "area">,
+  preferences: NearbyLocalPreferences,
+  listings: Listing[],
+  limit = 3
+): NearbyLocal[] {
+  const resultLimit = Math.max(0, Math.floor(limit));
+  if (resultLimit === 0) return [];
+
+  const interests = new Set(
+    preferences.interests.map((interest) => interest.toLowerCase().trim())
+  );
+  const maxScore = interests.size * 2 + 2.5;
+
+  return listings
+    .filter(
+      (listing) =>
+        listing.id !== stop.id &&
+        listing.status === "verified" &&
+        isPriceWithinBudget(listing.priceRange, preferences.budget)
+    )
+    .map((listing) => {
+      const overlappingTags = listing.interestTags.filter((tag) =>
+        interests.has(tag.toLowerCase().trim())
+      );
+      const sameArea =
+        listing.area.trim().toLowerCase() === stop.area.trim().toLowerCase();
+      const score =
+        overlappingTags.length * 2 + (sameArea ? 2 : 0) + 0.5;
+      const labels = overlappingTags.map(
+        (tag) => getInterestById(tag)?.label.toLowerCase() ?? tag
+      );
+      const reason =
+        labels.length > 0
+          ? `Matches your ${labels.join(" + ")} interests${
+              sameArea ? ` and is nearby in ${listing.area.split(",")[0]}` : ""
+            }`
+          : sameArea
+            ? `Close by in ${listing.area.split(",")[0]}`
+            : "A verified local pick for your itinerary";
+
+      return {
+        listing: {
+          ...listing,
+          shortDescription: listing.shortDescription ?? listing.description,
+          walkMinutes: listing.walkMinutes ?? 10,
+          matchPercent: Math.min(100, Math.round((score / maxScore) * 100)),
+          reason,
+        },
+        score,
+      };
+    })
+    .sort(
+      (a, b) => b.score - a.score || a.listing.name.localeCompare(b.listing.name)
+    )
+    .slice(0, resultLimit)
+    .map(({ listing }) => listing);
 }
 
 /**

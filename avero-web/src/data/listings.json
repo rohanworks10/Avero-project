@@ -8,7 +8,9 @@
     "interestTags": ["heritage", "art-culture"],
     "status": "live",
     "description": "Historic 12th-century stone fortress housing the intricately carved Jain Kamal Basti temple.",
-    "avgCost": 50
+    "avgCost": 50,
+    "shortDescription": "Explore a stone fort and the detailed Jain Kamal Basti temple.",
+    "walkMinutes": 8
   },
   {
     "id": "purohit-sweets-kunda",
@@ -19,7 +21,9 @@
     "interestTags": ["food"],
     "status": "live",
     "description": "Iconic sweet house celebrated for traditional slow-cooked Belagavi Kunda and fresh milk desserts.",
-    "avgCost": 150
+    "avgCost": 150,
+    "shortDescription": "Taste Belagavi's signature slow-cooked Kunda and milk sweets.",
+    "walkMinutes": 6
   },
   {
     "id": "gokak-falls-adventure",
@@ -30,7 +34,9 @@
     "interestTags": ["adventure", "nature"],
     "status": "live",
     "description": "Suspension bridge walk and scenic gorge trekking overlooking the cascading Ghataprabha river falls.",
-    "avgCost": 600
+    "avgCost": 600,
+    "shortDescription": "Walk the suspension bridge above the Ghataprabha gorge.",
+    "walkMinutes": 12
   },
   {
     "id": "khasbag-handloom-weavers",
@@ -41,7 +47,9 @@
     "interestTags": ["shopping", "art-culture", "heritage"],
     "status": "live",
     "description": "Master weavers producing prized traditional Belagavi silk and fine cotton handloom sarees.",
-    "avgCost": 3500
+    "avgCost": 3500,
+    "shortDescription": "See traditional Belagavi silk and cotton handloom work.",
+    "walkMinutes": 10
   },
   {
     "id": "camp-roastery-cafe",
@@ -52,7 +60,9 @@
     "interestTags": ["food", "nightlife"],
     "status": "live",
     "description": "Cozy specialty cafe serving single-origin pour-overs, Belgian waffles, and artisanal light bites.",
-    "avgCost": 450
+    "avgCost": 450,
+    "shortDescription": "Settle in for specialty coffee, waffles, and light bites.",
+    "walkMinutes": 5
   },
   {
     "id": "jamboti-eco-trails",
@@ -63,7 +73,9 @@
     "interestTags": ["adventure", "nature"],
     "status": "live",
     "description": "Guided rainforest trek through lush Western Ghats woodlands with clear freshwater stream crossings.",
-    "avgCost": 800
+    "avgCost": 800,
+    "shortDescription": "Follow forest trails and freshwater streams in the Western Ghats.",
+    "walkMinutes": 15
   },
   {
     "id": "sanjivani-ayurveda-wellness",
@@ -74,7 +86,9 @@
     "interestTags": ["wellness"],
     "status": "live",
     "description": "Authentic healing sanctuary specializing in rejuvenating herbal therapies, Panchakarma, and meditation.",
-    "avgCost": 2200
+    "avgCost": 2200,
+    "shortDescription": "Unwind with traditional therapies and guided meditation.",
+    "walkMinutes": 9
   },
   {
     "id": "niyaz-restaurant",
@@ -85,7 +99,9 @@
     "interestTags": ["food"],
     "status": "live",
     "description": "Beloved culinary landmark acclaimed for authentic Belagavi mutton biryani and tandoori specialties.",
-    "avgCost": 750
+    "avgCost": 750,
+    "shortDescription": "Try local biryani and tandoori favorites at this city landmark.",
+    "walkMinutes": 7
   },
   {
     "id": "rajhans-gad-yellur",
@@ -96,7 +112,9 @@
     "interestTags": ["heritage", "nature", "adventure"],
     "status": "live",
     "description": "Hilltop fortress rewarding hikers with panoramic vistas of rural Belagavi's fertile green valleys.",
-    "avgCost": 100
+    "avgCost": 100,
+    "shortDescription": "Climb to an old hill fort and wide valley views.",
+    "walkMinutes": 18
   },
   {
     "id": "kittur-chennamma-memorial",
@@ -107,7 +125,9 @@
     "interestTags": ["heritage", "art-culture"],
     "status": "live",
     "description": "Historic palace ramparts and heritage museum preserving artifacts of queen Rani Chennamma's rebellion.",
-    "avgCost": 80
+    "avgCost": 80,
+    "shortDescription": "Discover the fort, palace walls, and Chennamma-era history.",
+    "walkMinutes": 9
   },
   {
     "id": "cafe-canvas-art-lounge",
@@ -118,7 +138,9 @@
     "interestTags": ["food", "art-culture"],
     "status": "live",
     "description": "Creative studio space blending regional art exhibits, barista coffee, and fresh Continental bites.",
-    "avgCost": 400
+    "avgCost": 400,
+    "shortDescription": "Pair regional art exhibits with coffee and a light meal.",
+    "walkMinutes": 8
   },
   {
     "id": "shahapur-pottery-studio",
@@ -129,7 +151,9 @@
     "interestTags": ["shopping", "art-culture"],
     "status": "live",
     "description": "Hands-on terracotta pottery workshop offering clay sculpting experiences and artisanal earthenware.",
-    "avgCost": 300
+    "avgCost": 300,
+    "shortDescription": "Shape clay and browse locally made terracotta pieces.",
+    "walkMinutes": 11
   },
   {
     "id": "hidkal-dam-waters",
@@ -140,7 +164,9 @@
     "interestTags": ["nature", "adventure"],
     "status": "live",
     "description": "Serene lakeside reserve featuring peaceful boat excursions, migratory birding, and sunset viewpoints.",
-    "avgCost": 250
+    "avgCost": 250,
+    "shortDescription": "Take a quiet boat ride and look for birds by the water.",
+    "walkMinutes": 12
   },
   {
     "id": "highland-bistro-lounge",
@@ -151,7 +177,9 @@
     "interestTags": ["food", "nightlife"],
     "status": "live",
     "description": "Energetic rooftop gathering spot with craft mocktails, woodfired pizzas, and weekend acoustic gigs.",
-    "avgCost": 850
+    "avgCost": 850,
+    "shortDescription": "Share wood-fired pizza and mocktails with rooftop views.",
+    "walkMinutes": 6
   },
   {
     "id": "suvarna-soudha-gardens",
@@ -162,7 +190,9 @@
     "interestTags": ["nature", "art-culture"],
     "status": "verified",
     "description": "Manicured public botanical grounds surrounding the monumental state legislature architecture.",
-    "avgCost": 60
+    "avgCost": 60,
+    "shortDescription": "Take a quiet garden walk beside Belagavi's landmark legislature building.",
+    "walkMinutes": 8
   },
   {
     "id": "nisarga-ayur-yoga-haven",
@@ -173,7 +203,9 @@
     "interestTags": ["wellness", "nature"],
     "status": "verified",
     "description": "Tranquil farm-side wellness retreat offering dawn yoga sessions, herbal steam, and satvik cuisine.",
-    "avgCost": 2600
+    "avgCost": 2600,
+    "shortDescription": "Find a slower pace with yoga, herbal steam, and a farm-side setting.",
+    "walkMinutes": 18
   },
   {
     "id": "asha-mandige-center",
@@ -184,7 +216,9 @@
     "interestTags": ["food", "heritage"],
     "status": "verified",
     "description": "Century-old culinary establishment hand-stretching delicate crepelike Mandige over earthen pots.",
-    "avgCost": 200
+    "avgCost": 200,
+    "shortDescription": "Try Belagavi's delicate, hand-stretched traditional Mandige.",
+    "walkMinutes": 7
   },
   {
     "id": "camp-brass-emporium",
@@ -195,7 +229,9 @@
     "interestTags": ["shopping", "heritage"],
     "status": "verified",
     "description": "Heritage antique gallery presenting handcrafted bell-metal artifacts, lamps, and wood carvings.",
-    "avgCost": 1200
+    "avgCost": 1200,
+    "shortDescription": "Browse handcrafted brassware and heritage pieces in Camp.",
+    "walkMinutes": 6
   },
   {
     "id": "vajrapoha-wild-expedition",
@@ -206,7 +242,9 @@
     "interestTags": ["adventure", "nature"],
     "status": "pending",
     "description": "Challenging wilderness expedition heading into the deep Mahadayi wildlife sanctuary cascades.",
-    "avgCost": 1500
+    "avgCost": 1500,
+    "shortDescription": "Venture toward remote cascades in the Mahadayi sanctuary.",
+    "walkMinutes": 20
   },
   {
     "id": "root-stone-wellness-cafe",
@@ -217,7 +255,8 @@
     "interestTags": ["food", "wellness"],
     "status": "pending",
     "description": "Mindful farm-to-table cafe preparing cold-pressed botanicals, vegan bowls, and millet sourdough.",
-    "avgCost": 350
+    "avgCost": 350,
+    "shortDescription": "Choose a fresh plant-based meal made with local ingredients.",
+    "walkMinutes": 8
   }
 ]
-
