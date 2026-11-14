@@ -13,6 +13,11 @@ export type TripDay = {
   morning: string | null;
   afternoon: string | null;
   evening: string | null;
+  addedStores?: {
+    morning?: string[];
+    afternoon?: string[];
+    evening?: string[];
+  };
 };
 
 export type Trip = {
@@ -325,6 +330,104 @@ export function removeListingFromTrip(listingId: string): Trip | null {
   return updatedTrip;
 }
 
+export function addStoreToStop(
+  dayNumber: number,
+  slot: TripSlot,
+  storeId: string
+): Trip | null {
+  const current = getCurrentTrip();
+  if (!current) return null;
+
+  const updatedDays: TripDay[] = current.days.map((day) => {
+    if (day.dayNumber !== dayNumber) return day;
+
+    const dayAddedStores = day.addedStores ? { ...day.addedStores } : {};
+    const slotStores = dayAddedStores[slot] ? [...(dayAddedStores[slot] ?? [])] : [];
+
+    // Ensure no duplicates per day
+    const alreadyInDay = Object.values(dayAddedStores).some((arr) =>
+      arr?.includes(storeId)
+    );
+    if (alreadyInDay || slotStores.includes(storeId)) return day;
+
+    dayAddedStores[slot] = [...slotStores, storeId];
+    return {
+      ...day,
+      addedStores: dayAddedStores,
+    };
+  });
+
+  const currentLocalIds = current.localListingIds ?? [];
+  const updatedTrip: Trip = {
+    ...current,
+    days: updatedDays,
+    localListingIds: currentLocalIds.includes(storeId)
+      ? currentLocalIds
+      : [...currentLocalIds, storeId],
+  };
+
+  setCurrentTrip(updatedTrip);
+
+  const saved = getSavedTrips();
+  const idx = saved.findIndex((t) => t.id === updatedTrip.id);
+  if (idx >= 0) {
+    const nextSaved = [...saved];
+    nextSaved[idx] = updatedTrip;
+    persistSavedTrips(nextSaved);
+  }
+
+  return updatedTrip;
+}
+
+export function removeStoreFromStop(
+  dayNumber: number,
+  slot: TripSlot,
+  storeId: string
+): Trip | null {
+  const current = getCurrentTrip();
+  if (!current) return null;
+
+  const updatedDays: TripDay[] = current.days.map((day) => {
+    if (day.dayNumber !== dayNumber) return day;
+    if (!day.addedStores) return day;
+
+    const dayAddedStores = { ...day.addedStores };
+    if (dayAddedStores[slot]) {
+      dayAddedStores[slot] = (dayAddedStores[slot] ?? []).filter(
+        (id) => id !== storeId
+      );
+    }
+    return {
+      ...day,
+      addedStores: dayAddedStores,
+    };
+  });
+
+  const stillInAnyDay = updatedDays.some((d) =>
+    Object.values(d.addedStores ?? {}).some((arr) => arr?.includes(storeId))
+  );
+
+  const updatedTrip: Trip = {
+    ...current,
+    days: updatedDays,
+    localListingIds: stillInAnyDay
+      ? current.localListingIds
+      : (current.localListingIds ?? []).filter((id) => id !== storeId),
+  };
+
+  setCurrentTrip(updatedTrip);
+
+  const saved = getSavedTrips();
+  const idx = saved.findIndex((t) => t.id === updatedTrip.id);
+  if (idx >= 0) {
+    const nextSaved = [...saved];
+    nextSaved[idx] = updatedTrip;
+    persistSavedTrips(nextSaved);
+  }
+
+  return updatedTrip;
+}
+
 export function estimateTripCost(trip: Trip): number {
   if (!trip || !Array.isArray(trip.days)) return 0;
   const travellers = Math.max(1, trip.travellers || 1);
@@ -335,6 +438,42 @@ export function estimateTripCost(trip: Trip): number {
     for (const listingId of slots) {
       if (listingId) {
         const listing = getListingById(listingId);
+        if (listing) {
+          total += listing.avgCost * travellers;
+        }
+      }
+    }
+    if (day.addedStores) {
+      for (const slotStores of Object.values(day.addedStores)) {
+        if (Array.isArray(slotStores)) {
+          for (const storeId of slotStores) {
+            const listing = getListingById(storeId);
+            if (listing) {
+              total += listing.avgCost * travellers;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Include any extra localListingIds not already in addedStores
+  if (Array.isArray(trip.localListingIds)) {
+    const countedInDays = new Set<string>();
+    for (const day of trip.days) {
+      if (day.addedStores) {
+        for (const slotStores of Object.values(day.addedStores)) {
+          if (Array.isArray(slotStores)) {
+            for (const storeId of slotStores) {
+              countedInDays.add(storeId);
+            }
+          }
+        }
+      }
+    }
+    for (const localId of trip.localListingIds) {
+      if (!countedInDays.has(localId)) {
+        const listing = getListingById(localId);
         if (listing) {
           total += listing.avgCost * travellers;
         }

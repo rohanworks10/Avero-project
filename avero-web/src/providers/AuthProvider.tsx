@@ -67,7 +67,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = readStoredUser();
-    if (stored) setUser(stored);
+    if (stored) {
+      queueMicrotask(() => {
+        setUser(stored);
+      });
+    }
   }, []);
 
   const login = useCallback((email: string, role: UserRole = "traveller") => {

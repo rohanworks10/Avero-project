@@ -18,9 +18,12 @@ import {
 import {
   addLocalListingToTrip,
   addListingToTrip,
+  addStoreToStop,
+  removeStoreFromStop,
   createTripFromWizard,
   getCurrentTrip,
   removeListingFromTrip,
+  estimateTripCost,
   type Trip,
   type TripSlot,
 } from "@/lib/trips-store";
@@ -83,6 +86,24 @@ export default function ItineraryPage() {
 
   function handleAddLocal(local: NearbyLocal) {
     const updated = addLocalListingToTrip(local.id);
+    if (updated) setTrip(updated);
+  }
+
+  function handleAddJourneyStore(
+    storeId: string,
+    dayNumber: number,
+    slot: TripSlot
+  ) {
+    const updated = addStoreToStop(dayNumber, slot, storeId);
+    if (updated) setTrip(updated);
+  }
+
+  function handleRemoveJourneyStore(
+    storeId: string,
+    dayNumber: number,
+    slot: TripSlot
+  ) {
+    const updated = removeStoreFromStop(dayNumber, slot, storeId);
     if (updated) setTrip(updated);
   }
 
@@ -150,6 +171,7 @@ export default function ItineraryPage() {
     .slice(0, 3)
     .map((interest) => getInterestById(interest)?.label ?? interest);
   const hasStops = numberedSlots.some((slot) => slot.listing !== null);
+  const estimatedCost = estimateTripCost(trip);
 
   return (
     <div className="flex min-h-screen flex-col bg-cream text-teal-navy">
@@ -170,6 +192,11 @@ export default function ItineraryPage() {
               <span className="rounded-full border border-white/70 bg-white/75 px-3.5 py-1.5 text-xs font-medium text-teal-navy">
                 Budget · ₹{trip.budget.toLocaleString("en-IN")}
               </span>
+              {estimatedCost > 0 && (
+                <span className="rounded-full border border-white/70 bg-white/75 px-3.5 py-1.5 text-xs font-medium text-teal-navy">
+                  Total Cost · ₹{estimatedCost.toLocaleString("en-IN")}
+                </span>
+              )}
               <span className="rounded-full border border-white/70 bg-white/75 px-3.5 py-1.5 text-xs font-medium capitalize text-teal-navy">
                 Pace · {trip.pace}
               </span>
@@ -213,16 +240,20 @@ export default function ItineraryPage() {
                 dayNumber={currentDay.dayNumber}
                 date={currentDay.date}
                 slots={slotsData.map(
-                  ({ slot, title, time, listingId }) => ({
+                  ({ slot, title, time, listingId, listing }) => ({
                     slot,
                     title,
                     timeLabel: time,
                     listingId,
+                    stop: listing,
+                    addedStores: currentDay.addedStores?.[slot] ?? [],
                   })
                 )}
                 trip={trip}
                 onSelectListing={setActiveListing}
                 onAddListing={handleAddJourneyListing}
+                onAddStore={handleAddJourneyStore}
+                onRemoveStore={handleRemoveJourneyStore}
               />
             </div>
           ) : !hasStops ? (
