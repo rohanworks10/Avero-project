@@ -14,15 +14,27 @@ export type Listing = {
   status: ListingStatus;
   description: string;
   avgCost: number;
+  shortDescription: string;
+  walkMinutes: number;
 };
 
-export type NewListingInput = Omit<Listing, "id"> & { id?: string };
+type StoredListing = Omit<Listing, "shortDescription" | "walkMinutes"> &
+  Partial<Pick<Listing, "shortDescription" | "walkMinutes">>;
+
+export type NewListingInput = Omit<
+  Listing,
+  "id" | "shortDescription" | "walkMinutes"
+> & {
+  id?: string;
+  shortDescription?: string;
+  walkMinutes?: number;
+};
 
 const STORAGE_KEY = "avero_listings";
 
 let memoryStore: Listing[] | null = null;
 
-function isListing(item: unknown): item is Listing {
+function isListing(item: unknown): item is StoredListing {
   if (!item || typeof item !== "object") return false;
   const record = item as Record<string, unknown>;
   return (
@@ -38,8 +50,20 @@ function isListing(item: unknown): item is Listing {
       record.status === "verified" ||
       record.status === "live") &&
     typeof record.description === "string" &&
-    typeof record.avgCost === "number"
+    typeof record.avgCost === "number" &&
+    (record.shortDescription === undefined ||
+      typeof record.shortDescription === "string") &&
+    (record.walkMinutes === undefined ||
+      typeof record.walkMinutes === "number")
   );
+}
+
+function addListingDetails(item: StoredListing): Listing {
+  return {
+    ...item,
+    shortDescription: item.shortDescription ?? item.description,
+    walkMinutes: item.walkMinutes ?? 10,
+  };
 }
 
 function getInitialListings(): Listing[] {
@@ -47,7 +71,7 @@ function getInitialListings(): Listing[] {
   const validated: Listing[] = [];
   for (const item of seed) {
     if (isListing(item)) {
-      validated.push({ ...item });
+      validated.push(addListingDetails(item));
     }
   }
   return validated;
@@ -70,7 +94,7 @@ function loadListings(): Listing[] {
         const validated: Listing[] = [];
         for (const item of parsed) {
           if (isListing(item)) {
-            validated.push(item);
+            validated.push(addListingDetails(item));
           }
         }
         if (validated.length > 0) {
@@ -126,6 +150,8 @@ export function addListing(input: NewListingInput): Listing {
     status: input.status,
     description: input.description,
     avgCost: input.avgCost,
+    shortDescription: input.shortDescription ?? input.description,
+    walkMinutes: input.walkMinutes ?? 10,
   };
 
   memoryStore = [newListing, ...current];
@@ -157,4 +183,3 @@ export function resetListingsStore(): void {
   memoryStore = getInitialListings();
   persistListings(memoryStore);
 }
-
