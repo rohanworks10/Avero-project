@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, LockKeyhole, Mail, User as UserIcon } from "lucide-react";
 import { type UserRole, useAuth } from "@/providers/AuthProvider";
+import { useWizard } from "@/providers/WizardProvider";
+import { clearCurrentTrip } from "@/lib/trips-store";
 
 type FieldErrors = {
   name?: string;
@@ -63,6 +65,7 @@ function SignupContent() {
 function SignupForm({ defaultRole }: { defaultRole: UserRole }) {
   const router = useRouter();
   const { signup } = useAuth();
+  const { resetWizard } = useWizard();
   const [role, setRole] = useState<UserRole>(defaultRole);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -82,6 +85,9 @@ function SignupForm({ defaultRole }: { defaultRole: UserRole }) {
     if (Object.keys(nextErrors).length > 0) return;
 
     signup(name.trim(), email.trim(), role);
+    console.log("[avero] signup: resetting wizard & current trip");
+    resetWizard();
+    clearCurrentTrip();
     router.push(destinations[role]);
   }
 

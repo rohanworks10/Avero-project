@@ -94,8 +94,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(() => {
+    console.log("[avero] logout called — clearing user, wizard and current trip");
     setUser(null);
     writeStoredUser(null);
+    // Clear wizard and current-trip data so the next login starts with a blank wizard.
+    // We cannot call useWizard() here (AuthProvider wraps WizardProvider in layout),
+    // so we clear the localStorage keys directly.
+    try {
+      localStorage.removeItem("avero_wizard_data");
+      localStorage.removeItem("avero_current_trip");
+    } catch {
+      // ignore private/quota errors
+    }
   }, []);
 
   const value = useMemo(

@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@/providers/AuthProvider";
 
 export function Navbar() {
+  const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -74,18 +76,35 @@ export function Navbar() {
 
         {/* Desktop Auth CTAs */}
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/login"
-            className="rounded-full px-4 py-2 text-sm font-medium text-teal-navy transition-colors hover:bg-teal-navy/5 hover:text-teal-navy"
-          >
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-          >
-            Sign up
-          </Link>
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-semibold text-teal-navy">
+                {user.name}
+              </span>
+              <button
+                type="button"
+                onClick={() => logout()}
+                className="rounded-full px-4 py-2 text-sm font-medium text-teal-navy transition-colors hover:bg-teal-navy/5 hover:text-teal-navy"
+              >
+                Log out
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="rounded-full px-4 py-2 text-sm font-medium text-teal-navy transition-colors hover:bg-teal-navy/5 hover:text-teal-navy"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -138,20 +157,38 @@ export function Navbar() {
             <div className="pt-2">
               <hr className="mb-4 border-border/60" />
               <div className="flex flex-col gap-2.5">
-                <Link
-                  href="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-11 items-center justify-center rounded-full border border-border bg-card text-sm font-medium text-teal-navy shadow-sm transition-colors hover:bg-secondary"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/signup"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
-                >
-                  Sign up
-                </Link>
+                {user ? (
+                  <div className="flex items-center justify-between px-3 py-2">
+                    <span className="text-sm font-semibold text-teal-navy">{user.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        logout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="rounded-full bg-teal-navy/10 px-4 py-1.5 text-xs font-semibold text-teal-navy hover:bg-teal-navy/20"
+                    >
+                      Log out
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex h-11 items-center justify-center rounded-full border border-border bg-card text-sm font-medium text-teal-navy shadow-sm transition-colors hover:bg-secondary"
+                    >
+                      Log in
+                    </Link>
+                    <Link
+                      href="/signup"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex h-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+                    >
+                      Sign up
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </nav>

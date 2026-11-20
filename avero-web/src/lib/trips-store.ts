@@ -42,9 +42,14 @@ let inMemorySavedTrips: Trip[] | null = null;
 
 function calculateDaysCount(startDate: string, endDate: string): number {
   if (!startDate || !endDate) return 1;
-  const start = new Date(startDate).getTime();
-  const end = new Date(endDate).getTime();
-  if (isNaN(start) || isNaN(end) || end < start) return 1;
+  // Parse as local dates by splitting the YYYY-MM-DD string directly,
+  // avoiding UTC-midnight shifts that new Date("YYYY-MM-DD") introduces.
+  const [sy, sm, sd] = startDate.split("-").map(Number);
+  const [ey, em, ed] = endDate.split("-").map(Number);
+  if ([sy, sm, sd, ey, em, ed].some(isNaN)) return 1;
+  const start = new Date(sy, sm - 1, sd).getTime();
+  const end   = new Date(ey, em - 1, ed).getTime();
+  if (end < start) return 1;
   return Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
 }
 
@@ -98,6 +103,18 @@ function persistSavedTrips(trips: Trip[]): void {
     localStorage.setItem(SAVED_TRIPS_KEY, JSON.stringify(trips));
   } catch {
     // Ignore quota or disabled storage errors
+  }
+}
+
+/**
+ * Clears the current in-progress trip from memory and localStorage.
+ * Call this on login and logout so the next session starts fresh.
+ */
+export function clearCurrentTrip(): void {
+  console.log("[avero] clearCurrentTrip — wiping inMemory + avero_current_trip");
+  inMemoryCurrentTrip = null;
+  if (typeof window !== "undefined") {
+    try { localStorage.removeItem(CURRENT_TRIP_KEY); } catch { /* ignore */ }
   }
 }
 
@@ -179,6 +196,7 @@ export function createTripFromWizard(wizardState: WizardData): Trip {
     days,
   };
 
+  console.log("[avero] createTripFromWizard -> brand new trip created:", trip.destination, trip.days.length, "days");
   setCurrentTrip(trip);
   return trip;
 }
