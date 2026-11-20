@@ -4,6 +4,8 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import { type UserRole, useAuth } from "@/providers/AuthProvider";
+import { useWizard } from "@/providers/WizardProvider";
+import { clearCurrentTrip } from "@/lib/trips-store";
 
 type FieldErrors = {
   email?: string;
@@ -34,6 +36,7 @@ function validateFields(email: string, password: string): FieldErrors {
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
+  const { resetWizard } = useWizard();
   const [role, setRole] = useState<UserRole>("traveller");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,6 +53,9 @@ export default function LoginPage() {
     if (Object.keys(nextErrors).length > 0) return;
 
     login(email.trim(), role);
+    console.log("[avero] login: calling resetWizard + clearCurrentTrip");
+    resetWizard();
+    clearCurrentTrip();
     router.push(destinations[role]);
   }
 

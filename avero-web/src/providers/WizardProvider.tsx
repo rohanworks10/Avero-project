@@ -6,9 +6,12 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
+import { useAuth } from "@/providers/AuthProvider";
+import { clearCurrentTrip } from "@/lib/trips-store";
 
 export type TravelPace = "relaxed" | "balanced" | "packed";
 
@@ -38,7 +41,7 @@ export type WizardContextValue = {
 const STORAGE_KEY = "avero_wizard_data";
 
 export const DEFAULT_WIZARD_DATA: WizardData = {
-  destination: "Belagavi, Karnataka",
+  destination: "",
   startDate: "",
   endDate: "",
   travellers: 2,
@@ -78,7 +81,9 @@ function writeStoredData(data: WizardData): void {
 }
 
 export function WizardProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const [data, setData] = useState<WizardData>(DEFAULT_WIZARD_DATA);
+  const userRef = useRef<string | undefined>(user?.email);
 
   useEffect(() => {
     const stored = readStoredData();
@@ -116,12 +121,14 @@ export function WizardProvider({ children }: { children: ReactNode }) {
   const updateWizard = useCallback((updates: Partial<WizardData>) => {
     setData((prev) => {
       const next = { ...prev, ...updates };
+      console.log("[avero] updateWizard → writing avero_wizard_data", Object.keys(updates));
       writeStoredData(next);
       return next;
     });
   }, []);
 
   const resetWizard = useCallback(() => {
+    console.log("[avero] resetWizard called — clearing avero_wizard_data and resetting state");
     setData(DEFAULT_WIZARD_DATA);
     try {
       if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
@@ -131,6 +138,16 @@ export function WizardProvider({ children }: { children: ReactNode }) {
       // ignore
     }
   }, []);
+
+  // When user identity changes (login, logout, switch account), clear wizard state and current trip
+  useEffect(() => {
+    if (userRef.current !== user?.email) {
+      console.log("[avero] user changed from", userRef.current, "to", user?.email, "-> resetting wizard & clearing current trip");
+      userRef.current = user?.email;
+      resetWizard();
+      clearCurrentTrip();
+    }
+  }, [user?.email, resetWizard]);
 
   const setDestination = useCallback(
     (destination: string) => updateWizard({ destination }),

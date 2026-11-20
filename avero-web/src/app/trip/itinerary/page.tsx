@@ -53,6 +53,7 @@ export default function ItineraryPage() {
   useEffect(() => {
     const existing = getCurrentTrip();
     if (existing) {
+      console.log("[avero] itinerary loaded current trip:", existing.destination, existing.days.length, "days");
       queueMicrotask(() => {
         setTrip(existing);
         setIsReady(true);
@@ -68,6 +69,7 @@ export default function ItineraryPage() {
     }
 
     const created = createTripFromWizard(wizardData);
+    console.log("[avero] itinerary created trip from wizardData:", created.destination, created.days.length, "days");
     queueMicrotask(() => {
       setTrip(created);
       setIsReady(true);

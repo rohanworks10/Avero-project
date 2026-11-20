@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { interests } from "@/data/interests";
 import { type TravelPace, useWizard } from "@/providers/WizardProvider";
+import { createTripFromWizard } from "@/lib/trips-store";
 
 const interestIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   Utensils,
@@ -106,9 +107,12 @@ function formatDateDisplay(dateStr: string): string {
 
 function calculateDays(startDate: string, endDate: string): number {
   if (!startDate || !endDate) return 0;
-  const start = new Date(startDate).getTime();
-  const end = new Date(endDate).getTime();
-  if (isNaN(start) || isNaN(end) || end < start) return 0;
+  const [sy, sm, sd] = startDate.split("-").map(Number);
+  const [ey, em, ed] = endDate.split("-").map(Number);
+  if ([sy, sm, sd, ey, em, ed].some(isNaN)) return 0;
+  const start = new Date(sy, sm - 1, sd).getTime();
+  const end = new Date(ey, em - 1, ed).getTime();
+  if (end < start) return 0;
   return Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
 }
 
@@ -194,6 +198,9 @@ export default function TripSetupWizardPage() {
   function handleFinalSubmit() {
     if (!validateStep(4)) return;
     setIsGenerating(true);
+    // Replace current trip completely with the new trip generated from this wizard session
+    const newTrip = createTripFromWizard(data);
+    console.log("[avero] trip-setup: created and replaced current trip with", newTrip.destination, newTrip.days.length, "days");
     setTimeout(() => {
       router.push("/trip/itinerary");
     }, 2500);
@@ -807,7 +814,7 @@ export default function TripSetupWizardPage() {
                         Destination
                       </span>
                       <p className="truncate font-medium text-foreground">
-                        {data.destination || "Belagavi, Karnataka"}
+                        {data.destination || <span className="italic text-muted-foreground">Enter destination</span>}
                       </p>
                     </div>
                     {currentStep !== 1 && (
